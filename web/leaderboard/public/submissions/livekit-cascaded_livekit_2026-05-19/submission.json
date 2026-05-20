@@ -44,6 +44,11 @@
     "max_steps_seconds": 1200.0,
     "user_tts_provider": "elevenlabs/eleven_v3"
   },
+  "model_release": {
+    "release_date": "2025-04-11",
+    "announcement_url": "https://blog.livekit.io/livekits-series-b/",
+    "announcement_title": "LiveKit Agents 1.0"
+  },
   "references": [
     {
       "title": "LiveKit Agents Framework",
