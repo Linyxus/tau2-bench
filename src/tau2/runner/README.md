@@ -85,7 +85,7 @@ results = run_domain(config)
 
 - **`helpers.py`**: Task loading (`get_tasks`, `load_tasks`), run metadata (`get_info`, `make_run_name`), registry queries (`get_options`, `get_environment_info`).
 - **`checkpoint.py`**: `try_resume()` for resuming from existing results, `create_checkpoint_saver()` for atomic saves.
-- **`progress.py`**: `run_with_retry()` for retry logic, `StatusMonitor` for periodic progress display.
+- **`progress.py`**: `run_with_retry()` for retry logic, `RunProgress` for the live progress display (overall bar + in-flight task list; falls back to periodic status lines on non-interactive streams).
 
 ## Relationship to `tau2.run`
 

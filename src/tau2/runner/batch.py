@@ -46,7 +46,7 @@ from tau2.runner.checkpoint import (
     try_resume,
 )
 from tau2.runner.helpers import get_info, get_tasks, make_run_name
-from tau2.runner.progress import StatusMonitor, run_with_retry
+from tau2.runner.progress import RunProgress, run_with_retry
 from tau2.runner.simulation import run_simulation
 from tau2.user.user_simulator import (
     get_global_user_sim_guidelines,
@@ -593,7 +593,7 @@ def run_tasks(
     # Build argument list (skip already-completed runs)
     args = []
     for trial in range(config.num_trials):
-        for i, task in enumerate(tasks):
+        for task in tasks:
             if (trial, task.id, seeds[trial]) in done_runs:
                 console_text = Text(
                     text=f"Skipping task {task.id}, trial {trial + 1} because it has already been run.",
@@ -601,14 +601,16 @@ def run_tasks(
                 )
                 ConsoleDisplay.console.print(console_text)
                 continue
-            progress_str = f"{i}/{len(tasks)} (trial {trial + 1}/{config.num_trials})"
-            args.append((task, trial, seeds[trial], progress_str))
+            args.append((task, trial, seeds[trial]))
 
-    # Status monitor
+    # Live progress display (started just before work is submitted, below).
     total_count = len(tasks) * config.num_trials
-    monitor = StatusMonitor(total_count, initial_completed=len(done_runs))
-    monitor.set_results(simulation_results)
-    monitor.start()
+    run_progress = RunProgress(
+        total_count,
+        initial_completed=len(done_runs),
+        description=f"Running {config.domain}",
+    )
+    run_progress.set_results(simulation_results)
 
     # Pre-register LiveKit plugins on main thread before workers spawn
     if (
@@ -627,9 +629,7 @@ def run_tasks(
     # (which get a fresh default context) can re-apply them.
     _main_thread_llm_log_mode = llm_log_mode.get()
 
-    def _run_tracked(
-        task: Task, trial: int, seed: int, progress_str: str
-    ) -> SimulationRun:
+    def _run_tracked(task: Task, trial: int, seed: int) -> SimulationRun:
         """Run a single task with tracking, retry, and hallucination retry."""
         if shutdown_event.is_set():
             raise KeyboardInterrupt("Shutdown requested")
@@ -637,13 +637,7 @@ def run_tasks(
         _init_thread_event_loop()
         set_llm_log_mode(_main_thread_llm_log_mode)
         task_key = f"{task.id}.{trial}"
-        monitor.task_started(task_key, trial)
-
-        console_text = Text(
-            text=f"{progress_str}. Running task {task.id}, trial {trial + 1}",
-            style="bold green",
-        )
-        ConsoleDisplay.console.print(console_text)
+        run_progress.task_started(task_key, task.id, trial)
 
         def _execute(
             run_seed: int = seed,
@@ -675,7 +669,7 @@ def run_tasks(
                 retry_delay=config.retry_delay,
                 console_display=console_display,
                 save_fn=save_fn,
-                on_retry=lambda: monitor.task_restarted(task_key),
+                on_retry=lambda: run_progress.task_restarted(task_key),
                 shutdown_event=shutdown_event,
             )
 
@@ -763,7 +757,7 @@ def run_tasks(
                                 pass
 
                     # Build feedback and re-run
-                    monitor.task_restarted(task_key)
+                    run_progress.task_restarted(task_key)
                     feedback = format_hallucination_feedback(h_check)
                     retry_seed = seed + hallucination_retry_count * 1000
                     result = _execute(
@@ -797,17 +791,19 @@ def run_tasks(
 
             return result
         finally:
-            monitor.task_finished(task_key)
+            run_progress.task_finished(task_key)
             _cleanup_thread_event_loop()
 
     executor = ThreadPoolExecutor(max_workers=config.max_concurrency)
     futures: dict = {}
+    run_progress.start()
     try:
         futures = {executor.submit(_run_tracked, *arg): arg for arg in args}
         for future in as_completed(futures):
             result = future.result()
             simulation_results.simulations.append(result)
     except KeyboardInterrupt:
+        run_progress.stop()
         ConsoleDisplay.console.print(
             "\n[bold red]Ctrl+C received — cancelling remaining tasks...[/bold red]"
         )
@@ -819,14 +815,13 @@ def run_tasks(
             f"[bold yellow]{n} simulation(s) already checkpointed. "
             f"Use --auto-resume to continue later.[/bold yellow]"
         )
-        monitor.stop()
 
         # Force-exit: background threads (litellm, websocket loops, etc.)
         # hold the process alive and produce noisy errors during interpreter
         # shutdown.  All completed results are already on disk via save_fn.
         os._exit(130)
     finally:
-        monitor.stop()
+        run_progress.stop()
         if not shutdown_event.is_set():
             executor.shutdown(wait=True)
 
