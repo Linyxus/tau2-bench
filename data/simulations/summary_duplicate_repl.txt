@@ -1,0 +1,889 @@
+================================================================================
+CASE 1
+File: deepseek-v3.2_scala_airline.json | Task: 23 | Trial: 4
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+// Get details of all three reservations to verify
+println("\n" + "="*60)
+println("BOOKING CONFIRMATION SUMMARY")
+println("="*60)
+
+println("\nCANCELLATION CONFIRMED:")
+println("-" * 40)
+println("Reservation K1NW8N has been cancelled.")
+println("Refund of $567 will be issued to gift_card_6136092")
+println("within 5-7 business days.")
+
+println("\nNEW BUSINESS CLASS RESERVATIONS:")
+println("-" * 40)
+
+// Reservation 1 details
+val res1 = getReservationDetails("HATHAT")
+println(s"1. Reservation HATHAT - Mohamed Silva")
+println(s"   Flights: ${res1.flights.map(f => s"${f.flightNumber} (${f.date})").mkString(" → ")}")
+println(s"   Cabin: ${res1.cabin}")
+println("   Payment methods used:")
+println("     - certificate_3765853: $500")
+println("     - gift_card_6136092: $129")
+println("     - gift_card_8020792: $198")
+println("     - Mastercard (ending in 9363): $44")
+
+// Reservation 2 details
+val res2 = getReservationDetails("HATHAU")
+println(s"\n2. Reservation HATHAU - Raj Sanchez")
+println(s"   Flights: ${res2.flights.map(f => s"${f.flightNumber} (${f.date})").mkString(" → ")}")
+println(s"   Cabin: ${res2.cabin}")
+println("   Payment methods used:")
+println("     - certificate_2765295: $250")
+println("     - Mastercard (ending in 9363): $621")
+
+// Reservation 3 details
+val res3 = getReservationDetails("HATHAV")
+println(s"\n3. Reservation HATHAV - Liam Wilson")
+println(s"   Flights: ${res3.flights.map(f => s"${f.flightNumber} (${f.date})").mkString(" → ")}")
+println(s"   Cabin: ${res3.cabin}")
+println("   Payment methods used:")
+println("     - certificate_9984806: $250")
+println("     - Mastercard (ending in 9363): $621")
+
+println("\n" + "-" * 40)
+println("TOTAL MASTERCARD CHARGE: $1,286")
+println("-" * 40)
+println("Breakdown:")
+println("  - Reservation HATHAT (Mohamed): $44")
+println("  - Reservation HATHAU (Raj): $621")
+println("  - Reservation HATHAV (Liam): $621")
+println("  - Total: $1,286")
+
+println("\n" + "-" * 40)
+println("FLIGHT DETAILS:")
+println("-" * 40)
+println("All reservations include:")
+println("  Outbound: HAT023 on 2024-05-26 (JFK → SFO)")
+println("  Return: HAT204 on 2024-05-28 (SFO → SEA)")
+println("           HAT100 on 2024-05-28 (SEA → JFK)")
+println("\nCabin: Business Class")
+println("Bags: 0 checked bags")
+println("Insurance: Not included")
+
+println("\n" + "="*60)
+println("All three passengers are confirmed on the same flights.")
+println("Please keep these reservation IDs for your records.")
+println("="*60)
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+16 |val res1 = getReservationDetails("HATHAT")
+   |    ^
+   |Conflicting definitions:
+   |val res1: Unit in object rs$line$21 at line 3 and
+   |val res1: library.facade.airline.Reservation in object rs$line$21 at line 16
+   |
+   | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+27 |val res2 = getReservationDetails("HATHAU")
+   |    ^
+   |Conflicting definitions:
+   |val res2: Unit in object rs$line$21 at line 4 and
+   |val res2: library.facade.airline.Reservation in object rs$line$21 at line 27
+   |
+   | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+36 |val res3 = getReservationDetails("HATHAV")
+   |    ^
+   |Conflicting definitions:
+   |val res3: Unit in object rs$line$21 at line 6 and
+   |val res3: library.facade.airline.Reservation in object rs$line$21 at line 36
+   |
+   | longer explanation available when compiling with `-explain`
+3 errors found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 2
+File: deepseek-v3.2_scala_airline.json | Task: 9 | Trial: 5
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+// Check flight statuses for IFOYYZ
+val res1 = getReservationDetails("IFOYYZ")
+println("Checking IFOYYZ flights:")
+res1.flights.foreach { flight =>
+  val status = getFlightStatus(flight.flightNumber, flight.date)
+  println(s"  Flight ${flight.flightNumber} on ${flight.date}: $status")
+}
+
+println()
+
+// Check flight statuses for NQNU5R
+val res2 = getReservationDetails("NQNU5R")
+println("Checking NQNU5R flights:")
+res2.flights.foreach { flight =>
+  val status = getFlightStatus(flight.flightNumber, flight.date)
+  println(s"  Flight ${flight.flightNumber} on ${flight.date}: $status")
+}
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+12 |val res2 = getReservationDetails("NQNU5R")
+   |    ^
+   |Conflicting definitions:
+   |val res2: Unit in object rs$line$5 at line 3 and
+   |val res2: library.facade.airline.Reservation in object rs$line$5 at line 12
+   |
+   | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 3
+File: gptoss120b_airline_scala_trial2.json | Task: 19 | Trial: 1
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("Z7GOZK"); println(res1);
+val res2 = getReservationDetails("K67C4W"); println(res2);
+val res3 = getReservationDetails("THY2DG"); println(res3);
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+2 |val res2 = getReservationDetails("K67C4W"); println(res2);
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$4 at line 1 and
+  |val res2: library.facade.airline.Reservation in object rs$line$4 at line 2
+  |
+  | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+3 |val res3 = getReservationDetails("THY2DG"); println(res3);
+  |    ^
+  |Conflicting definitions:
+  |val res3: Unit in object rs$line$4 at line 2 and
+  |val res3: library.facade.airline.Reservation in object rs$line$4 at line 3
+  |
+  | longer explanation available when compiling with `-explain`
+2 errors found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 4
+File: gptoss120b_airline_scala_trial2.json | Task: 9 | Trial: 2
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val user = getUserDetails("aarav_ahmed_6699")
+println(user)
+val res1 = getReservationDetails("IFOYYZ")
+println(res1)
+val res2 = getReservationDetails("NQNU5R")
+println(res2)
+val res3 = getReservationDetails("M20IZO")
+println(res3)
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+5 |val res2 = getReservationDetails("NQNU5R")
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$3 at line 4 and
+  |val res2: library.facade.airline.Reservation in object rs$line$3 at line 5
+  |
+  | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+7 |val res3 = getReservationDetails("M20IZO")
+  |    ^
+  |Conflicting definitions:
+  |val res3: Unit in object rs$line$3 at line 6 and
+  |val res3: library.facade.airline.Reservation in object rs$line$3 at line 7
+  |
+  | longer explanation available when compiling with `-explain`
+2 errors found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 5
+File: gptoss120b_airline_scala_trial2.json | Task: 41 | Trial: 2
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("UDMOP1"); println(res1);
+val res2 = getReservationDetails("4XGCCM"); println(res2);
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+2 |val res2 = getReservationDetails("4XGCCM"); println(res2);
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$5 at line 1 and
+  |val res2: library.facade.airline.Reservation in object rs$line$5 at line 2
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 6
+File: gptoss120b_airline_scala_trial2.json | Task: 44 | Trial: 2
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val userId = "sophia_silva_7557"
+val paymentId = "credit_card_4196779"
+
+// Helper to build FlightInfo list from reservation
+import scala.collection.immutable.List
+
+def flightInfosFromRes(res: Reservation): List[FlightInfo] = {
+  res.flights.map(f => FlightInfo(f.flightNumber, f.date))
+}
+
+// Process NM1VX1
+val res1 = getReservationDetails("NM1VX1")
+val flights1 = flightInfosFromRes(res1)
+val updated1 = updateReservationFlights("NM1VX1", Cabin.Business, flights1, paymentId)
+println(s"Updated NM1VX1: ${updated1.reservationId}, new cabin: ${updated1.cabin}")
+
+// Process KC18K6
+val res2 = getReservationDetails("KC18K6")
+val flights2 = flightInfosFromRes(res2)
+val updated2 = updateReservationFlights("KC18K6", Cabin.Business, flights2, paymentId)
+println(s"Updated KC18K6: ${updated2.reservationId}, new cabin: ${updated2.cabin}")
+
+// Process H8Q05L
+val res3 = getReservationDetails("H8Q05L")
+val flights3 = flightInfosFromRes(res3)
+val updated3 = updateReservationFlights("H8Q05L", Cabin.Business, flights3, paymentId)
+println(s"Updated H8Q05L: ${updated3.reservationId}, new cabin: ${updated3.cabin}")
+
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+18 |val res2 = getReservationDetails("KC18K6")
+   |    ^
+   |Conflicting definitions:
+   |val res2: Unit in object rs$line$11 at line 15 and
+   |val res2: library.facade.airline.Reservation in object rs$line$11 at line 18
+   |
+   | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+24 |val res3 = getReservationDetails("H8Q05L")
+   |    ^
+   |Conflicting definitions:
+   |val res3: Unit in object rs$line$11 at line 21 and
+   |val res3: library.facade.airline.Reservation in object rs$line$11 at line 24
+   |
+   | longer explanation available when compiling with `-explain`
+2 errors found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 7
+File: gptoss120b_airline_scala_trial2.json | Task: 2 | Trial: 4
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("SDZQKO")
+println(res1)
+val res2 = getReservationDetails("4OG6T3")
+println(res2)
+
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+3 |val res2 = getReservationDetails("4OG6T3")
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$5 at line 2 and
+  |val res2: library.facade.airline.Reservation in object rs$line$5 at line 3
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 8
+File: gptoss120b_airline_scala_trial2.json | Task: 26 | Trial: 4
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("3FRNFB");
+println(res1);
+val res2 = getReservationDetails("Q4L9HS");
+println(res2);
+
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+3 |val res2 = getReservationDetails("Q4L9HS");
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$4 at line 2 and
+  |val res2: library.facade.airline.Reservation in object rs$line$4 at line 3
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 9
+File: gptoss120b_airline_scala_trial2.json | Task: 2 | Trial: 6
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("SDZQKO"); println(res1);
+val res2 = getReservationDetails("4OG6T3"); println(res2);
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+2 |val res2 = getReservationDetails("4OG6T3"); println(res2);
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$4 at line 1 and
+  |val res2: library.facade.airline.Reservation in object rs$line$4 at line 2
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 10
+File: gptoss120b_airline_scala_trial2.json | Task: 7 | Trial: 7
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("XEHM4B"); println(res1);
+val res2 = getReservationDetails("59XX6W"); println(res2);
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+2 |val res2 = getReservationDetails("59XX6W"); println(res2);
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$3 at line 1 and
+  |val res2: library.facade.airline.Reservation in object rs$line$3 at line 2
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 11
+File: gptoss120b_airline_scala_trial2.json | Task: 31 | Trial: 7
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("DF89BM"); println(res1);
+val res2 = getReservationDetails("COVE6R"); println(res2);
+val res3 = getReservationDetails("IIHXDG"); println(res3);
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+2 |val res2 = getReservationDetails("COVE6R"); println(res2);
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$4 at line 1 and
+  |val res2: library.facade.airline.Reservation in object rs$line$4 at line 2
+  |
+  | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+3 |val res3 = getReservationDetails("IIHXDG"); println(res3);
+  |    ^
+  |Conflicting definitions:
+  |val res3: Unit in object rs$line$4 at line 2 and
+  |val res3: library.facade.airline.Reservation in object rs$line$4 at line 3
+  |
+  | longer explanation available when compiling with `-explain`
+2 errors found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 12
+File: gpt-oss-120b_retail_scala.json | Task: 28 | Trial: 6
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val paymentMethod = "paypal_3024827"
+val res1 = returnDeliveredOrderItems("#W3792453", List("4293355847"), paymentMethod)
+println("Return result #W3792453:\n" + res1)
+val res2 = returnDeliveredOrderItems("#W7181492", List("5753502325", "9851293632"), paymentMethod)
+println("Return result #W7181492:\n" + res2)
+val res3 = returnDeliveredOrderItems("#W5565470", List("9570044148", "6857426243"), paymentMethod)
+println("Return result #W5565470:\n" + res3)
+
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+4 |val res2 = returnDeliveredOrderItems("#W7181492", List("5753502325", "9851293632"), paymentMethod)
+  |    ^
+  |    Conflicting definitions:
+  |    val res2: Unit in object rs$line$6 at line 3 and
+  |    val res2: library.facade.retail.Order in object rs$line$6 at line 4
+  |
+  | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+6 |val res3 = returnDeliveredOrderItems("#W5565470", List("9570044148", "6857426243"), paymentMethod)
+  |    ^
+  |    Conflicting definitions:
+  |    val res3: Unit in object rs$line$6 at line 5 and
+  |    val res3: library.facade.retail.Order in object rs$line$6 at line 6
+  |
+  | longer explanation available when compiling with `-explain`
+2 errors found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 13
+File: gpt-oss-120b_retail_scala.json | Task: 82 | Trial: 7
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = try {
+  returnDeliveredOrderItems("#W9571698", List("6065192424"), "gift_card_7250692")
+} catch { case e: Exception => s"Error1: ${e.getMessage}" }
+println(res1)
+
+val res2 = try {
+  returnDeliveredOrderItems("#W3069600", List("8551474201"), "gift_card_7250692")
+} catch { case e: Exception => s"Error2: ${e.getMessage}" }
+println(res2)
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+6 |val res2 = try {
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$7 at line 4 and
+  |val res2: library.facade.retail.Order | String in object rs$line$7 at line 6
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 14
+File: gpt-oss-120b_retail_scala.json | Task: 104 | Trial: 8
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val paymentMethod = "credit_card_2112420"
+val res1 = returnDeliveredOrderItems("#W6239298", List("4900661478"), paymentMethod)
+println(res1)
+val res2 = returnDeliveredOrderItems("#W8660475", List("8479046075"), paymentMethod)
+println(res2)
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+4 |val res2 = returnDeliveredOrderItems("#W8660475", List("8479046075"), paymentMethod)
+  |    ^
+  |    Conflicting definitions:
+  |    val res2: Unit in object rs$line$6 at line 3 and
+  |    val res2: library.facade.retail.Order in object rs$line$6 at line 4
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 15
+File: gemini3flash_airline_scala.json | Task: 18 | Trial: 1
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+// Processing downgrades for all 5 reservations
+
+// 1. JG7FMM
+val res1 = updateReservationFlights(
+  reservationId = "JG7FMM",
+  cabin = Cabin.Economy,
+  flights = List(
+    FlightInfo("HAT028", "2024-05-21"),
+    FlightInfo("HAT277", "2024-05-21")
+  ),
+  paymentId = "credit_card_2929732"
+)
+println(s"JG7FMM updated: $res1")
+
+// 2. 2FBBAH
+val res2 = updateReservationFlights(
+  reservationId = "2FBBAH",
+  cabin = Cabin.Economy,
+  flights = List(
+    FlightInfo("HAT080", "2024-05-28"),
+    FlightInfo("HAT076", "2024-05-28"),
+    FlightInfo("HAT255", "2024-05-30"),
+    FlightInfo("HAT148", "2024-05-30")
+  ),
+  paymentId = "gift_card_3481935"
+)
+println(s"2FBBAH updated: $res2")
+
+// 3. X7BYG1
+val res3 = updateReservationFlights(
+  reservationId = "X7BYG1",
+  cabin = Cabin.Economy,
+  flights = List(
+    FlightInfo("HAT232", "2024-05-24"),
+    FlightInfo("HAT228", "2024-05-24")
+  ),
+  paymentId = "credit_card_2929732"
+)
+println(s"X7BYG1 updated: $res3")
+
+// 4. EQ1G6C
+val res4 = updateReservationFlights(
+  reservationId = "EQ1G6C",
+  cabin = Cabin.Economy,
+  flights = List(
+    FlightInfo("HAT084", "2024-05-23"),
+    FlightInfo("HAT175", "2024-05-23")
+  ),
+  paymentId = "gift_card_6847880"
+)
+println(s"EQ1G6C updated: $res4")
+
+// 5. BOH180
+val res5 = updateReservationFlights(
+  reservationId = "BOH180",
+  cabin = Cabin.Economy,
+  flights = List(
+    FlightInfo("HAT276", "2024-05-21"),
+    FlightInfo("HAT279", "2024-05-22")
+  ),
+  paymentId = "credit_card_9525117"
+)
+println(s"BOH180 updated: $res5")
+
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+16 |val res2 = updateReservationFlights(
+   |    ^
+   |    Conflicting definitions:
+   |    val res2: Unit in object rs$line$8 at line 13 and
+   |    val res2: String in object rs$line$8 at line 16
+   |
+   | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+30 |val res3 = updateReservationFlights(
+   |    ^
+   |    Conflicting definitions:
+   |    val res3: Unit in object rs$line$8 at line 27 and
+   |    val res3: String in object rs$line$8 at line 30
+   |
+   | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+42 |val res4 = updateReservationFlights(
+   |    ^
+   |    Conflicting definitions:
+   |    val res4: Unit in object rs$line$8 at line 39 and
+   |    val res4: String in object rs$line$8 at line 42
+   |
+   | longer explanation available when compiling with `-explain`
+-- [E120] Naming Error: --------------------------------------------------------
+54 |val res5 = updateReservationFlights(
+   |    ^
+   |    Conflicting definitions:
+   |    val res5: Unit in object rs$line$8 at line 51 and
+   |    val res5: String in object rs$line$8 at line 54
+   |
+   | longer explanation available when compiling with `-explain`
+4 errors found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 16
+File: minimax-m2.5_airline_scala_trial2.json | Task: 41 | Trial: 2
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("UDMOP1")
+println(s"Reservation UDMOP1:")
+println(s"  Status: ${res1.status}")
+println(s"  Flights: ${res1.flights.map(f => s"${f.flightNumber} on ${f.date} from ${f.origin} to ${f.destination}").mkString(", ")}")
+println(s"  Created: ${res1.createdAt}")
+
+val res2 = getReservationDetails("4XGCCM")
+println(s"\nReservation 4XGCCM:")
+println(s"  Status: ${res2.status}")
+println(s"  Flights: ${res2.flights.map(f => s"${f.flightNumber} on ${f.date} from ${f.origin} to ${f.destination}").mkString(", ")}")
+println(s"  Created: ${res2.createdAt}")
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+7 |val res2 = getReservationDetails("4XGCCM")
+  |    ^
+  |Conflicting definitions:
+  |val res2: Unit in object rs$line$5 at line 2 and
+  |val res2: library.facade.airline.Reservation in object rs$line$5 at line 7
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 17
+File: minimax-m2.5_airline_scala_trial2.json | Task: 41 | Trial: 2
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("UDMOP1")
+println(s"Reservation UDMOP1:")
+println(s"  Status: ${res1.status}")
+println(s"  Flights: ${res1.flights.map(f => s"${f.flightNumber} on ${f.date} from ${f.origin} to ${f.destination}").mkString(", ")}")
+println(s"  Created: ${res1.createdAt}")
+
+val res3 = getReservationDetails("4XGCCM")
+println(s"\nReservation 4XGCCM:")
+println(s"  Status: ${res3.status}")
+println(s"  Flights: ${res3.flights.map(f => s"${f.flightNumber} on ${f.date} from ${f.origin} to ${f.destination}").mkString(", ")}")
+println(s"  Created: ${res3.createdAt}")
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+7 |val res3 = getReservationDetails("4XGCCM")
+  |    ^
+  |Conflicting definitions:
+  |val res3: Unit in object rs$line$5 at line 3 and
+  |val res3: library.facade.airline.Reservation in object rs$line$5 at line 7
+  |
+  | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 18
+File: minimax-m2.5_airline_scala_trial2.json | Task: 18 | Trial: 4
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+// Let me calculate the price differences
+// Using the original reservation prices and current economy prices
+
+println("=== Price Comparison ===\n")
+
+// JG7FMM - MCO->BOS (HAT028), BOS->CLT (HAT277)
+val jg7fmm_business = 1859 + 1679  // from reservation
+val jg7fmm_economy = 140 + 101  // current economy prices
+val jg7fmm_diff = jg7fmm_business - jg7fmm_economy
+println(s"JG7FMM: Business $jg7fmm_business -> Economy $jg7fmm_economy (Diff: $jg7fmm_diff refund)")
+
+// For 2FBBAH - let me check the reservation flights
+val res2 = getReservationDetails("2FBBAH")
+println(s"\n2FBBAH flights: ${res2.flights}")
+res2.flights.foreach { f =>
+  println(s"  ${f.flightNumber} on ${f.date}: business price in reservation = ${f.price}")
+}
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+13 |val res2 = getReservationDetails("2FBBAH")
+   |    ^
+   |Conflicting definitions:
+   |val res2: Unit in object rs$line$10 at line 4 and
+   |val res2: library.facade.airline.Reservation in object rs$line$10 at line 13
+   |
+   | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 19
+File: minimax-m2.5_airline_scala_trial2.json | Task: 41 | Trial: 6
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("UDMOP1")
+println(s"Reservation: UDMOP1")
+println(s"Origin: ${res1.origin}, Destination: ${res1.destination}")
+println(s"Flight Type: ${res1.flightType}")
+println(s"Cabin: ${res1.cabin}")
+println(s"Flights: ${res1.flights.map(f => s"${f.flightNumber} on ${f.date}").mkString(", ")}")
+println(s"Created at: ${res1.createdAt}")
+println(s"Insurance: ${res1.insurance}")
+println(s"Status: ${res1.status}")
+println()
+
+val res2 = getReservationDetails("4XGCCM")
+println(s"Reservation: 4XGCCM")
+println(s"Origin: ${res2.origin}, Destination: ${res2.destination}")
+println(s"Flight Type: ${res2.flightType}")
+println(s"Cabin: ${res2.cabin}")
+println(s"Flights: ${res2.flights.map(f => s"${f.flightNumber} on ${f.date}").mkString(", ")}")
+println(s"Created at: ${res2.createdAt}")
+println(s"Insurance: ${res2.insurance}")
+println(s"Status: ${res2.status}")
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+12 |val res2 = getReservationDetails("4XGCCM")
+   |    ^
+   |Conflicting definitions:
+   |val res2: Unit in object rs$line$5 at line 2 and
+   |val res2: library.facade.airline.Reservation in object rs$line$5 at line 12
+   |
+   | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 20
+File: minimax-m2.5_airline_scala_trial2.json | Task: 41 | Trial: 6
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("UDMOP1")
+println(s"Reservation: UDMOP1")
+println(s"Origin: ${res1.origin}, Destination: ${res1.destination}")
+println(s"Flight Type: ${res1.flightType}")
+println(s"Cabin: ${res1.cabin}")
+println(s"Flights: ${res1.flights.map(f => s"${f.flightNumber} on ${f.date}").mkString(", ")}")
+println(s"Created at: ${res1.createdAt}")
+println(s"Insurance: ${res1.insurance}")
+println(s"Status: ${res1.status}")
+println()
+
+val res3 = getReservationDetails("4XGCCM")
+println(s"Reservation: 4XGCCM")
+println(s"Origin: ${res3.origin}, Destination: ${res3.destination}")
+println(s"Flight Type: ${res3.flightType}")
+println(s"Cabin: ${res3.cabin}")
+println(s"Flights: ${res3.flights.map(f => s"${f.flightNumber} on ${res3.flights.indexOf(f)}").mkString(", ")}")
+println(s"Created at: ${res3.createdAt}")
+println(s"Insurance: ${res3.insurance}")
+println(s"Status: ${res3.status}")
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+12 |val res3 = getReservationDetails("4XGCCM")
+   |    ^
+   |Conflicting definitions:
+   |val res3: Unit in object rs$line$5 at line 3 and
+   |val res3: library.facade.airline.Reservation in object rs$line$5 at line 12
+   |
+   | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+================================================================================
+CASE 21
+File: minimax-m2.5_airline_scala_trial2.json | Task: 41 | Trial: 9
+================================================================================
+
+LLM OUTPUT (Scala code):
+--------------------------------------------------------------------------------
+val res1 = getReservationDetails("UDMOP1")
+println(s"Reservation UDMOP1:")
+println(s"  Origin: ${res1.origin}, Destination: ${res1.destination}")
+println(s"  Flight Type: ${res1.flightType}")
+println(s"  Flights: ${res1.flights.map(f => s"${f.flightNumber} on ${f.date}").mkString(", ")}")
+println(s"  Cabin: ${res1.cabin}")
+println(s"  Passengers: ${res1.passengers.map(p => s"${p.firstName} ${p.lastName}").mkString(", ")}")
+println(s"  Status: ${res1.status.getOrElse("active")}")
+println()
+
+val res2 = getReservationDetails("4XGCCM")
+println(s"Reservation 4XGCCM:")
+println(s"  Origin: ${res2.origin}, Destination: ${res2.destination}")
+println(s"  Flight Type: ${res2.flightType}")
+println(s"  Flights: ${res2.flights.map(f => s"${f.flightNumber} on ${f.date}").mkString(", ")}")
+println(s"  Cabin: ${res2.cabin}")
+println(s"  Passengers: ${res2.passengers.map(p => s"${p.firstName} ${p.lastName}").mkString(", ")}")
+println(s"  Status: ${res2.status.getOrElse("active")}")
+--------------------------------------------------------------------------------
+
+COMPILER ERROR:
+--------------------------------------------------------------------------------
+-- [E120] Naming Error: --------------------------------------------------------
+11 |val res2 = getReservationDetails("4XGCCM")
+   |    ^
+   |Conflicting definitions:
+   |val res2: Unit in object rs$line$5 at line 2 and
+   |val res2: library.facade.airline.Reservation in object rs$line$5 at line 11
+   |
+   | longer explanation available when compiling with `-explain`
+1 error found
+--------------------------------------------------------------------------------
+
+
+Total unique cases: 21
